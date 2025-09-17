@@ -2,6 +2,9 @@ package chess;
 
 import java.util.Collection;
 
+/** this class serves as the top-level management of the chess game.
+ * It is responsible for executing moves as well as recording the game status. */
+
 /**
  * For a class that can manage a chess game, making moves on a board
  * <p>
