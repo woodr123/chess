@@ -9,9 +9,33 @@ import java.util.List;
  * Note: You can add to this class, but you may not alter
  * signature of the existing methods.
  */
-public class ChessPiece {
+public class ChessPiece{
+
+    private final ChessGame.TeamColor pieceColor;
+    private final PieceType type;
+    private PieceMovesCalculator calculator;
 
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
+        this.pieceColor = pieceColor;
+        this.type = type;
+        if (type==PieceType.BISHOP) {
+            this.calculator = new BishopMoveCalculator();
+        }
+        else if (type==PieceType.KNIGHT) {
+            this.calculator = new KnightMoveCalculator();
+        }
+        else if (type==PieceType.QUEEN) {
+            this.calculator = new QueenMoveCalculator();
+        }
+        else if (type==PieceType.ROOK) {
+            this.calculator = new RookMoveCalculator();
+        }
+        else if (type==PieceType.KING) {
+            this.calculator = new KingMoveCalculator();
+        }
+        else if (type==PieceType.PAWN) {
+            this.calculator = new PawnMoveCalculator();
+        }
     }
 
     /**
@@ -30,14 +54,14 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        throw new RuntimeException("Not implemented");
+       return pieceColor;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        throw new RuntimeException("Not implemented");
+        return  type;
     }
 
     /**
@@ -48,6 +72,6 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        return List.of();
+        return this.calculator.pieceMoves(board, myPosition);
     }
 }
