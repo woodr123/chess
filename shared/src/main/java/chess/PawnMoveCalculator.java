@@ -25,26 +25,41 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
                 int[] moveTwo = BtravelDirections[1];
                 currentRow += moveTwo[0];
                 currentColumn += moveTwo[1];
+
                 ChessPosition newPosition = new ChessPosition(currentRow, currentColumn);
+
                 if (board.getPiece(newPosition) == null) {
-                    moves.add(new ChessMove(myPosition, newPosition, null));
+                    for (int i = 0; i < 1; i++) {
+                        int[] row_colDirection = oneStepDirection[i];
+                        int currentRowTemp = myPosition.getRow() + row_colDirection[0];
+                        int currentColumnTemp = myPosition.getColumn() + row_colDirection[1];
+                        if (board.getPiece(new ChessPosition(currentRowTemp, currentColumnTemp)) == null) {
+                            moves.add(new ChessMove(myPosition, newPosition, null));
+                        }
+
+                    }
+
                 }
             }
-
-            for (int i = 0; i < 1; i++) {
+            //Check diagonal enemies
+            for (int i = 0; i < 2; i++) {
                 int[] row_colDirection = BdiagDirections[i];
-                currentRow += row_colDirection[0];
-                currentColumn += row_colDirection[1];
+                currentRow = myPosition.getRow() + row_colDirection[0];
+                currentColumn = myPosition.getColumn() + row_colDirection[1];
                 if (currentRow < 1 || currentRow > 8 || currentColumn < 1 || currentColumn > 8) {
                     break;
                 }
                 ChessPosition newPostion = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPostion) != null) {
-                    if (board.getPiece(newPostion).getTeamColor() != board.getPiece(myPosition).getTeamColor()) {
+                    if (newPostion.getRow() == 1) {
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.QUEEN));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.KNIGHT));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.BISHOP));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.ROOK));
+                    }
+                    else if (board.getPiece(newPostion).getTeamColor() != board.getPiece(myPosition).getTeamColor()) {
                         moves.add(new ChessMove(myPosition, newPostion, null));
                     }
-                } else {
-                    break;
                 }
             }
 
@@ -55,14 +70,18 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
                 if (currentRow < 1 || currentRow > 8 || currentColumn < 1 || currentColumn > 8) {
                     break;
                 }
+
                 ChessPosition newPostion = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPostion) == null) {
                     if (newPostion.getRow() == 1) {
-                        moves.add(new ChessMove(myPosition, newPostion, null));
-                        moves.add(new ChessMove(myPosition, newPostion, null));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.QUEEN));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.KNIGHT));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.BISHOP));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.ROOK));
+                    }
+                    else {
                         moves.add(new ChessMove(myPosition, newPostion, null));
                     }
-                    moves.add(new ChessMove(myPosition, newPostion, null));
                 } else {
                     break;
                 }
@@ -73,7 +92,7 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
 
         //WHITE PAWN PIECE//
         int[][] WdiagDirections = {
-                {1, -1}, {1, 1},};
+                {1, -1}, {1, 1}};
         int[][] WtravelDirections = {{1, 0}, {2, 0}};
         int[][] WoneStepDirection = {{1, 0}};
 
@@ -88,20 +107,33 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
                 currentColumn += moveTwo[1];
                 ChessPosition newPosition = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPosition) == null) {
-                    moves.add(new ChessMove(myPosition, newPosition, null));
+                    for (int i = 0; i < 1; i++) {
+                        int[] row_colDirection = WoneStepDirection[i];
+                        int currentRowTemp = myPosition.getRow() + row_colDirection[0];
+                        int currentColumnTemp = myPosition.getColumn() + row_colDirection[1];
+                        if (board.getPiece(new ChessPosition(currentRowTemp, currentColumnTemp)) == null) {
+                            moves.add(new ChessMove(myPosition, newPosition, null));
+                        }
+                    }
                 }
             }
-
-            for (int i = 0; i < 1; i++) {
+            //Check diagonal enemies
+            for (int i = 0; i < 2; i++) {
                 int[] row_colDirection = WdiagDirections[i];
-                currentRow += row_colDirection[0];
-                currentColumn += row_colDirection[1];
+                currentRow = myPosition.getRow() + row_colDirection[0];
+                currentColumn = myPosition.getColumn() + row_colDirection[1];
                 if (currentRow < 1 || currentRow > 8 || currentColumn < 1 || currentColumn > 8) {
                     break;
                 }
                 ChessPosition newPostion = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPostion) != null) {
-                    if (board.getPiece(newPostion).getTeamColor() != board.getPiece(myPosition).getTeamColor()) {
+                    if (newPostion.getRow() == 8) {
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.QUEEN));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.KNIGHT));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.BISHOP));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.ROOK));
+                    }
+                    else if (board.getPiece(newPostion).getTeamColor() != board.getPiece(myPosition).getTeamColor()) {
                         moves.add(new ChessMove(myPosition, newPostion, null));
                     }
                 } else {
@@ -119,11 +151,14 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
                 ChessPosition newPostion = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPostion) == null) {
                     if (newPostion.getRow() == 8) {
-                        moves.add(new ChessMove(myPosition, newPostion, null));
-                        moves.add(new ChessMove(myPosition, newPostion, null));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.QUEEN));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.KNIGHT));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.BISHOP));
+                        moves.add(new ChessMove(myPosition, newPostion, ChessPiece.PieceType.ROOK));
+                    }
+                    else {
                         moves.add(new ChessMove(myPosition, newPostion, null));
                     }
-                    moves.add(new ChessMove(myPosition, newPostion, null));
                 } else {
                     break;
                 }
@@ -134,16 +169,6 @@ public class PawnMoveCalculator implements PieceMovesCalculator {
         return moves;
 
 
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
     }
 }
 
