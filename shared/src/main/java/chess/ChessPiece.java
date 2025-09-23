@@ -82,11 +82,11 @@ public class ChessPiece{
             return false;
         }
         ChessPiece that = (ChessPiece) o;
-        return pieceColor == that.pieceColor && type == that.type && Objects.equals(calculator, that.calculator);
+        return pieceColor == that.pieceColor && type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pieceColor, type, calculator);
+        return Objects.hash(pieceColor, type);
     }
 }

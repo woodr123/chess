@@ -7,9 +7,6 @@ package chess;
  */
 
 
-import java.util.Arrays;
-import java.util.Objects;
-
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -50,120 +47,112 @@ public class ChessBoard {
      * Sets the board to the default starting board
      * (How the game of chess normally starts)
      */
-    public static ChessBoard resetBoard() {
+    public void resetBoard() {
+
+        for (int row = 1; row <= 8; row++) {
+            for (int col = 1; col <= 8; col++) {
+                addPiece(new ChessPosition(row, col), null);
+            }
+        }
+
 
         ChessPiece wRook = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
+        ChessPiece w2Rook = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
         ChessPiece wKnight = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
+        ChessPiece w2Knight = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
         ChessPiece wBishop = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
+        ChessPiece w2Bishop = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
         ChessPiece wQueen = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN);
         ChessPiece wKing = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING);
-        ChessPiece wPawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w1Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w2Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w3Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w4Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w5Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w6Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w7Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
+        ChessPiece w8Pawn = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN);
 
         ChessPiece bRook = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
+        ChessPiece b2Rook = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
         ChessPiece bKnight = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
+        ChessPiece b2Knight = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
         ChessPiece bBishop = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
+        ChessPiece b2Bishop = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
         ChessPiece bQueen = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN);
         ChessPiece bKing = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING);
-        ChessPiece bPawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b1Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b2Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b3Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b4Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b5Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b6Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b7Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
+        ChessPiece b8Pawn = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN);
         //NewBoard Created
-        ChessBoard newBoard = new ChessBoard();
+
 
         //Player White
-        newBoard.addPiece(new ChessPosition(1,1), wRook);
-        newBoard.addPiece(new ChessPosition(1,2), wKnight);
-        newBoard.addPiece(new ChessPosition(1,3), wBishop);
-        newBoard.addPiece(new ChessPosition(1,4), wQueen);
-        newBoard.addPiece(new ChessPosition(1,5), wKing);
-        newBoard.addPiece(new ChessPosition(1,6), wBishop);
-        newBoard.addPiece(new ChessPosition(1,7), wKnight);
-        newBoard.addPiece(new ChessPosition(1,8), wRook);
-        newBoard.addPiece(new ChessPosition(2,1), wPawn);
-        newBoard.addPiece(new ChessPosition(2,2), wPawn);
-        newBoard.addPiece(new ChessPosition(2,3), wPawn);
-        newBoard.addPiece(new ChessPosition(2,4), wPawn);
-        newBoard.addPiece(new ChessPosition(2,5), wPawn);
-        newBoard.addPiece(new ChessPosition(2,6), wPawn);
-        newBoard.addPiece(new ChessPosition(2,7), wPawn);
-        newBoard.addPiece(new ChessPosition(2,8), wPawn);
+        addPiece(new ChessPosition(1,1), wRook);
+        addPiece(new ChessPosition(1,2), wKnight);
+        addPiece(new ChessPosition(1,3), wBishop);
+        addPiece(new ChessPosition(1,4), wQueen);
+        addPiece(new ChessPosition(1,5), wKing);
+        addPiece(new ChessPosition(1,6), w2Bishop);
+        addPiece(new ChessPosition(1,7), w2Knight);
+        addPiece(new ChessPosition(1,8), w2Rook);
+        addPiece(new ChessPosition(2,1), w1Pawn);
+        addPiece(new ChessPosition(2,2), w2Pawn);
+        addPiece(new ChessPosition(2,3), w3Pawn);
+        addPiece(new ChessPosition(2,4), w4Pawn);
+        addPiece(new ChessPosition(2,5), w5Pawn);
+        addPiece(new ChessPosition(2,6), w6Pawn);
+        addPiece(new ChessPosition(2,7), w7Pawn);
+        addPiece(new ChessPosition(2,8), w8Pawn);
 
         //Player Black
-        newBoard.addPiece(new ChessPosition(8,1), bRook);
-        newBoard.addPiece(new ChessPosition(8,2), bKnight);
-        newBoard.addPiece(new ChessPosition(8,3), bBishop);
-        newBoard.addPiece(new ChessPosition(8,4), bQueen);
-        newBoard.addPiece(new ChessPosition(8,5), bKing);
-        newBoard.addPiece(new ChessPosition(8,6), bBishop);
-        newBoard.addPiece(new ChessPosition(8,7), bKnight);
-        newBoard.addPiece(new ChessPosition(8,8), bRook);
-        newBoard.addPiece(new ChessPosition(7,1), bPawn);
-        newBoard.addPiece(new ChessPosition(7,2), bPawn);
-        newBoard.addPiece(new ChessPosition(7,3), bPawn);
-        newBoard.addPiece(new ChessPosition(7,4), bPawn);
-        newBoard.addPiece(new ChessPosition(7,5), bPawn);
-        newBoard.addPiece(new ChessPosition(7,6), bPawn);
-        newBoard.addPiece(new ChessPosition(7,7), bPawn);
-        newBoard.addPiece(new ChessPosition(7,8), bPawn);
-
-//        newBoard.addPiece(new ChessPosition(3,1), null);
-//        newBoard.addPiece(new ChessPosition(3,2), null);
-//        newBoard.addPiece(new ChessPosition(3,3), null);
-//        newBoard.addPiece(new ChessPosition(3,4), null);
-//        newBoard.addPiece(new ChessPosition(3,5), null);
-//        newBoard.addPiece(new ChessPosition(3,6), null);
-//        newBoard.addPiece(new ChessPosition(3,7), null);
-//        newBoard.addPiece(new ChessPosition(3,8), null);
-//
-//        newBoard.addPiece(new ChessPosition(4,1), null);
-//        newBoard.addPiece(new ChessPosition(4,2), null);
-//        newBoard.addPiece(new ChessPosition(4,3), null);
-//        newBoard.addPiece(new ChessPosition(4,4), null);
-//        newBoard.addPiece(new ChessPosition(4,5), null);
-//        newBoard.addPiece(new ChessPosition(4,6), null);
-//        newBoard.addPiece(new ChessPosition(4,7), null);
-//        newBoard.addPiece(new ChessPosition(4,8), null);
-//
-//        newBoard.addPiece(new ChessPosition(5,1), null);
-//        newBoard.addPiece(new ChessPosition(5,2), null);
-//        newBoard.addPiece(new ChessPosition(5,3), null);
-//        newBoard.addPiece(new ChessPosition(5,4), null);
-//        newBoard.addPiece(new ChessPosition(5,5), null);
-//        newBoard.addPiece(new ChessPosition(5,6), null);
-//        newBoard.addPiece(new ChessPosition(5,7), null);
-//        newBoard.addPiece(new ChessPosition(5,8), null);
-//
-//        newBoard.addPiece(new ChessPosition(6,1), null);
-//        newBoard.addPiece(new ChessPosition(6,2), null);
-//        newBoard.addPiece(new ChessPosition(6,3), null);
-//        newBoard.addPiece(new ChessPosition(6,4), null);
-//        newBoard.addPiece(new ChessPosition(6,5), null);
-//        newBoard.addPiece(new ChessPosition(6,6), null);
-//        newBoard.addPiece(new ChessPosition(6,7), null);
-//        newBoard.addPiece(new ChessPosition(6,8), null);
-
-        return newBoard;
+        addPiece(new ChessPosition(8,1), bRook);
+        addPiece(new ChessPosition(8,2), bKnight);
+        addPiece(new ChessPosition(8,3), bBishop);
+        addPiece(new ChessPosition(8,4), bQueen);
+        addPiece(new ChessPosition(8,5), bKing);
+        addPiece(new ChessPosition(8,6), b2Bishop);
+        addPiece(new ChessPosition(8,7), b2Knight);
+        addPiece(new ChessPosition(8,8), b2Rook);
+        addPiece(new ChessPosition(7,1), b1Pawn);
+        addPiece(new ChessPosition(7,2), b2Pawn);
+        addPiece(new ChessPosition(7,3), b3Pawn);
+        addPiece(new ChessPosition(7,4), b4Pawn);
+        addPiece(new ChessPosition(7,5), b5Pawn);
+        addPiece(new ChessPosition(7,6), b6Pawn);
+        addPiece(new ChessPosition(7,7), b7Pawn);
+        addPiece(new ChessPosition(7,8), b8Pawn);
 
     }
 
-    @Override
+        @Override
     public boolean equals(Object obj) {
         if (this == obj){
-            return true; }
+            return true;
+        }
         if (!(obj instanceof ChessBoard)) {
             return false;
         }
         ChessBoard other = (ChessBoard) obj;
 
-        for (int i = 1; i < 7; i++) {
-            for (int j = 1; j < 7; j++) {
-                ChessPiece thisPiece = this.getPiece(new ChessPosition(i, j));
-                ChessPiece otherPiece = other.getPiece(new ChessPosition(i, j));
+        for (int i = 1; i < 8; i++) {
+            for (int j = 1; j < 8; j++) {
+                ChessPosition position = new ChessPosition(i, j);
+                ChessPiece thisPiece = this.getPiece(position);
+                ChessPiece otherPiece = other.getPiece(position);
+
                 if (thisPiece == null && otherPiece == null) {
                     continue;
                 }
                 if (thisPiece == null || otherPiece == null) {
                     return false;
                 }
-                if (!this.getPiece(new ChessPosition(i, j)).equals(other.getPiece(new ChessPosition(i,j)))) {
+                if (!thisPiece.equals(otherPiece)) {
                     return false;
                 }
             }
@@ -174,14 +163,17 @@ public class ChessBoard {
 
     @Override
     public int hashCode() {
-
-        return super.hashCode();
+        int finalResult = 17;
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                ChessPiece checkPiece = getPiece(new ChessPosition(i, j));
+                int pieceHash = (checkPiece == null) ? 0 : checkPiece.hashCode();
+                finalResult = 31 * finalResult + pieceHash;
+            }
+        }
+        return finalResult;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }
 
 
