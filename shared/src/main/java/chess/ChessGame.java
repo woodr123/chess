@@ -13,6 +13,8 @@ import java.util.Collection;
  */
 public class ChessGame {
 
+    private TeamColor team;
+
     public ChessGame() {
 
     }
@@ -21,7 +23,7 @@ public class ChessGame {
      * @return Which team's turn it is
      */
     public TeamColor getTeamTurn() {
-        throw new RuntimeException("Not implemented");
+        return team;
     }
 
     /**
@@ -29,8 +31,8 @@ public class ChessGame {
      *
      * @param team the team whose turn it is
      */
+
     public void setTeamTurn(TeamColor team) {
-        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -49,7 +51,19 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        throw new RuntimeException("Not implemented");
+        ChessPosition piecePosition = new ChessPosition(startPosition.getRow(), startPosition.getColumn());
+        if (piecePosition == null) {
+            return null;
+        }
+
+        return null;
+
+
+
+        //be able to get the return of piece moves from a specific position on the board.
+            //then get the return values of 'piece moves'
+            //then check if a certain move would put the king in checkmate
+            //then check if a move would put the
     }
 
     /**
@@ -69,6 +83,10 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
+        // possibly run through all of the other teams, piece moves. And if any of them match the king's location,
+        // he's in danger, aka check
+
+
         throw new RuntimeException("Not implemented");
     }
 
@@ -79,6 +97,12 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
+
+        // possibly run through all of the other teams, piece moves. And if any of them match the king's location,
+        // and the king has no moves that don't match the other player's moves
+
+
+
         throw new RuntimeException("Not implemented");
     }
 

@@ -7,6 +7,9 @@ package chess;
  */
 
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -130,49 +133,20 @@ public class ChessBoard {
 
     }
 
-        @Override
-    public boolean equals(Object obj) {
-        if (this == obj){
-            return true;
-        }
-        if (!(obj instanceof ChessBoard)) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ChessBoard other = (ChessBoard) obj;
-
-        for (int i = 1; i < 8; i++) {
-            for (int j = 1; j < 8; j++) {
-                ChessPosition position = new ChessPosition(i, j);
-                ChessPiece thisPiece = this.getPiece(position);
-                ChessPiece otherPiece = other.getPiece(position);
-
-                if (thisPiece == null && otherPiece == null) {
-                    continue;
-                }
-                if (thisPiece == null || otherPiece == null) {
-                    return false;
-                }
-                if (!thisPiece.equals(otherPiece)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        ChessBoard that = (ChessBoard) o;
+        return Objects.deepEquals(squares, that.squares);
     }
-
 
     @Override
     public int hashCode() {
-        int finalResult = 17;
-        for (int i = 1; i <= 8; i++) {
-            for (int j = 1; j <= 8; j++) {
-                ChessPiece checkPiece = getPiece(new ChessPosition(i, j));
-                int pieceHash = (checkPiece == null) ? 0 : checkPiece.hashCode();
-                finalResult = 31 * finalResult + pieceHash;
-            }
-        }
-        return finalResult;
+        return Arrays.deepHashCode(squares);
     }
+
 
 }
 
