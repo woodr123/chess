@@ -1,6 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /** this class serves as the top-level management of the chess game.
  * It is responsible for executing moves as well as recording the game status. */
@@ -14,6 +16,7 @@ import java.util.Collection;
 public class ChessGame {
 
     private TeamColor team;
+    private ChessBoard board;
 
     public ChessGame() {
 
@@ -33,6 +36,7 @@ public class ChessGame {
      */
 
     public void setTeamTurn(TeamColor team) {
+        this.team = team;
     }
 
     /**
@@ -51,14 +55,18 @@ public class ChessGame {
      * startPosition
      */
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
-        ChessPosition piecePosition = new ChessPosition(startPosition.getRow(), startPosition.getColumn());
-        if (piecePosition == null) {
+        ChessPiece piece = getBoard().getPiece(startPosition);
+        if (piece == null) {
             return null;
         }
+        else {
+            List<ChessMove> validMoves = new ArrayList<>();
 
-        return null;
 
 
+
+            return validMoves;
+        }
 
         //be able to get the return of piece moves from a specific position on the board.
             //then get the return values of 'piece moves'
@@ -74,6 +82,10 @@ public class ChessGame {
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
         throw new RuntimeException("Not implemented");
+
+        //after each move, switch who's turn it is.
+
+
     }
 
     /**
@@ -123,7 +135,7 @@ public class ChessGame {
      * @param board the new board to use
      */
     public void setBoard(ChessBoard board) {
-        throw new RuntimeException("Not implemented");
+        this.board = board;
     }
 
     /**
@@ -132,6 +144,6 @@ public class ChessGame {
      * @return the chessboard
      */
     public ChessBoard getBoard() {
-        throw new RuntimeException("Not implemented");
+        return board;
     }
 }
