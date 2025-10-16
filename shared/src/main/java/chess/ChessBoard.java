@@ -148,6 +148,29 @@ public class ChessBoard {
     }
 
 
+    public ChessBoard copy() {
+        ChessBoard boardCopy = new ChessBoard();
+
+        for (int row=0; row < 8; row++) {
+            for (int col=0; col < 8; col++) {
+                ChessPiece tempPiece = this.squares[row][col];
+                if (tempPiece != null){
+                    ChessPiece newPiece = new ChessPiece(tempPiece.getTeamColor(), tempPiece.getPieceType());
+                    boardCopy.addPiece(new ChessPosition(row + 1, col + 1), newPiece);
+                }
+            }
+        }
+        return boardCopy;
+    }
+
+
+    public void movePiece(ChessPosition startPosition, ChessPosition endPosition) {
+        ChessPiece piece = squares[startPosition.getRow()-1][startPosition.getColumn()-1];
+        squares[endPosition.getRow()][endPosition.getColumn()] = piece;
+        squares[startPosition.getRow() - 1][startPosition.getColumn() - 1] = null;
+
+
+    }
 }
 
 

@@ -61,9 +61,17 @@ public class ChessGame {
         }
         else {
             List<ChessMove> validMoves = new ArrayList<>();
+            Collection<ChessMove> possibleMoves = piece.pieceMoves(getBoard(), startPosition);
+            for (ChessMove move : possibleMoves) {
+                ChessBoard tempBoard = getBoard().copy();
+                ChessGame tempGame = new ChessGame();
+                tempGame.setBoard(tempBoard);
+                tempBoard.movePiece(move.getStartPosition(), move.getEndPosition());
+                if (!tempGame.isInCheck(piece.getTeamColor())) {
+                    validMoves.add(move);
+                }
 
-
-
+            }
 
             return validMoves;
         }
@@ -97,6 +105,9 @@ public class ChessGame {
     public boolean isInCheck(TeamColor teamColor) {
         // possibly run through all of the other teams, piece moves. And if any of them match the king's location,
         // he's in danger, aka check
+
+        ChessBoard tempBoard = board.copy();
+
 
 
         throw new RuntimeException("Not implemented");
