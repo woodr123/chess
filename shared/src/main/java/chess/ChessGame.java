@@ -63,14 +63,13 @@ public class ChessGame {
             List<ChessMove> validMoves = new ArrayList<>();
             Collection<ChessMove> possibleMoves = piece.pieceMoves(getBoard(), startPosition);
             for (ChessMove move : possibleMoves) {
-                ChessBoard tempBoard = board.copy();
+                ChessBoard tempBoard = getBoard().copy();
                 ChessGame tempGame = new ChessGame();
                 tempGame.setBoard(tempBoard);
                 tempBoard.movePiece(move.getStartPosition(), move.getEndPosition());
                 if (!tempGame.isInCheck(piece.getTeamColor())) {
                     validMoves.add(move);
                 }
-
             }
             return validMoves;
         }
@@ -105,37 +104,38 @@ public class ChessGame {
         // possibly run through all of the other teams, piece moves. And if any of them match the king's location,
         // he's in danger, aka check
 
-        ChessBoard tempBoard = board.copy();
-//        ChessGame tempGame = new ChessGame();
-//        tempGame.setBoard(tempBoard);
+        ChessBoard tempBoard = getBoard().copy();
+        ChessPosition kingsPosition = null;
+        ChessGame tempGame = new ChessGame();
+        tempGame.setBoard(tempBoard);
 
         //find the king's position first
-        for (int row = 1; row < 8; row ++) {
-            for (int col = 1; col < 8; col ++) {
-                if (tempBoard.getPiece(new ChessPosition(row, col)).getPieceType() == ChessPiece.PieceType.KING) {
+        for (int row = 1; row <= 8; row ++) {
+            for (int col = 1; col <= 8; col ++) {
+                ChessPiece piece = tempBoard.getPiece(new ChessPosition(row, col));
+                if (piece != null && piece.getPieceType() == ChessPiece.PieceType.KING) {
                     if (tempBoard.getPiece(new ChessPosition(row, col)).getTeamColor() == teamColor) {
-                        ChessPosition kingsPosition = new  ChessPosition(row, col);
+                        kingsPosition = new  ChessPosition(row, col);
                     }
                 }
             }
         }
 
         //find if any piece moves of the other color match the king's position.
-        for (int row = 1; row < 8; row ++) {
-            for (int col = 1; col < 8; col ++) {
-                if (tempBoard.getPiece(new ChessPosition(row, col)).getTeamColor() != teamColor) {
+        for (int row = 1; row <= 8; row ++) {
+            for (int col = 1; col <= 8; col ++) {
+                ChessPiece piece = tempBoard.getPiece(new ChessPosition(row, col));
+                if (piece != null && piece.getTeamColor() != teamColor) {
                     ChessPosition piecePostion = new ChessPosition(row, col);
-                    Collection<ChessMove> possibleMoves = tempBoard.getPiece(piecePostion).pieceMoves(getBoard(), piecePostion);
+                    Collection<ChessMove> possibleMoves = tempBoard.getPiece(piecePostion).pieceMoves(tempBoard, piecePostion);
                     for (ChessMove move : possibleMoves) {
-                        if (move == kingsPosition) {
+                        if (move.getEndPosition().equals(kingsPosition)) {
                             return true;
                         }
                     }
                 }
             }
         }
-
-
         return false;
     }
 

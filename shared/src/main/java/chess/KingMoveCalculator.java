@@ -21,7 +21,7 @@ public class KingMoveCalculator implements PieceMovesCalculator {
             int[] rol_colDirection = directions[i];
             currentRow = myPosition.getRow() + rol_colDirection[0];
             currentColumn = myPosition.getColumn() + rol_colDirection[1];
-            if (currentRow > 1 && currentRow < 8 && currentColumn > 1 && currentColumn < 8) {
+            if (currentRow >= 1 && currentRow <= 8 && currentColumn >= 1 && currentColumn <= 8) {
                 ChessPosition newPosition = new ChessPosition(currentRow, currentColumn);
                 if (board.getPiece(newPosition) == null){
                     moves.add(new ChessMove(myPosition, newPosition, null));

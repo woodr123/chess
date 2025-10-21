@@ -166,7 +166,7 @@ public class ChessBoard {
 
     public void movePiece(ChessPosition startPosition, ChessPosition endPosition) {
         ChessPiece piece = squares[startPosition.getRow()-1][startPosition.getColumn()-1];
-        squares[endPosition.getRow()][endPosition.getColumn()] = piece;
+        squares[endPosition.getRow()-1][endPosition.getColumn()-1] = piece;
         squares[startPosition.getRow() - 1][startPosition.getColumn() - 1] = null;
 
 
