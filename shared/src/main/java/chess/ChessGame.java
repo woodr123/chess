@@ -63,7 +63,7 @@ public class ChessGame {
             List<ChessMove> validMoves = new ArrayList<>();
             Collection<ChessMove> possibleMoves = piece.pieceMoves(getBoard(), startPosition);
             for (ChessMove move : possibleMoves) {
-                ChessBoard tempBoard = getBoard().copy();
+                ChessBoard tempBoard = board.copy();
                 ChessGame tempGame = new ChessGame();
                 tempGame.setBoard(tempBoard);
                 tempBoard.movePiece(move.getStartPosition(), move.getEndPosition());
@@ -72,14 +72,13 @@ public class ChessGame {
                 }
 
             }
-
             return validMoves;
         }
 
         //be able to get the return of piece moves from a specific position on the board.
             //then get the return values of 'piece moves'
-            //then check if a certain move would put the king in checkmate
-            //then check if a move would put the
+            //then check if a certain move would put the king in check
+
     }
 
     /**
@@ -107,10 +106,37 @@ public class ChessGame {
         // he's in danger, aka check
 
         ChessBoard tempBoard = board.copy();
+//        ChessGame tempGame = new ChessGame();
+//        tempGame.setBoard(tempBoard);
+
+        //find the king's position first
+        for (int row = 1; row < 8; row ++) {
+            for (int col = 1; col < 8; col ++) {
+                if (tempBoard.getPiece(new ChessPosition(row, col)).getPieceType() == ChessPiece.PieceType.KING) {
+                    if (tempBoard.getPiece(new ChessPosition(row, col)).getTeamColor() == teamColor) {
+                        ChessPosition kingsPosition = new  ChessPosition(row, col);
+                    }
+                }
+            }
+        }
+
+        //find if any piece moves of the other color match the king's position.
+        for (int row = 1; row < 8; row ++) {
+            for (int col = 1; col < 8; col ++) {
+                if (tempBoard.getPiece(new ChessPosition(row, col)).getTeamColor() != teamColor) {
+                    ChessPosition piecePostion = new ChessPosition(row, col);
+                    Collection<ChessMove> possibleMoves = tempBoard.getPiece(piecePostion).pieceMoves(getBoard(), piecePostion);
+                    for (ChessMove move : possibleMoves) {
+                        if (move == kingsPosition) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
 
 
-
-        throw new RuntimeException("Not implemented");
+        return false;
     }
 
     /**
